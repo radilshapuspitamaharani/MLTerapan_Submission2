@@ -18,7 +18,7 @@ Sistem rekomendasi adalah suatu teknologi yang di desain untuk mempermudah pengg
 
     ### Solution statements
 - Melakukan pembagian data berdasarkan tipe konten sebelum melakukan <i>development</i> model <i>machine learning</i>
--Melakukan <i>pre-processing data</i> dengan baik kemudian membangun model <i>content-based filtering</i>
+-Melakukan <i>pre-processing data</i> dengan baik kemudian membangun model <i>collaborative filtering</i>
 
 ## Data Understanding
 * Informasi Dataset
@@ -44,13 +44,22 @@ Dalam sistem rekomendasi film ini, dari 3 file data yang digunakan sistem rekome
 
 
 ## Data Preparation
+Dataframe baru dibuat berdasarkan dengan tiga type yaitu <i>movies</i>, <i>ratings</i>, dan <i>tags</i> untuk melakukan permodelan <i>machine learning</i> berdasarkan tipe.
+
 Pada bagian ini dilakukan pengecekan informasi data kemudian <i>missing value</i> dan duplikat data. Berikut penjelasan dari masing-masing proses
 - <i>Removing Missing Value</i>, pada tahap ini dilakukan karena apabila pada program tidak terdapat <i>missing value</i> maka itu akan membuat performa dalam pembuatan model menjadi lebih baik. Tahapan ini dilakukan menggunakan kode dataframe.dropna(). Kode ini berfungsi untuk menghapus data yang memiliki <i>null values</i> di dalam baris setiap data
-- Normaliasi, dilakukan untuk mengubah nilai kolom numerik dalam kumpulan data ke skam]la umu, tanpa mendistorsi perbedaan dalam rentang nilai. Proses normalisasi dilakukan dengan metode Min Max
-<img width="743" alt="image" src="https://user-images.githubusercontent.com/97927496/205098642-a1e76dbf-1db7-49e2-bb01-65add3b2b227.png">
+- Normalisasi, dilakukan untuk mengubah nilai kolom numerik dalam kumpulan data ke skala umum, tanpa mendistorsi perbedaan dalam rentang nilai. Proses normalisasi dilakukan dengan metode <i>Min Max</i>.Cara kerja <i>Min Max</i> adalah setiap nilai pada sebuah fitur dikurangi dengan nilai minimum fitur tersebut, kemudian dibagi dengan rentang nilai atau nilai maksimum dikurangi nilai minimum dari fitur tersebut.  
+Pada program yang telah dijalankan, method max() digunakan untuk mengambil nilai maksimum dari fitur atau kolom tersebut dan method min() digunakan untuk mengambil nilai minimum dari fitur tersebut.
 
 ## Modeling
+
 Pada sistem rekomendasi ini menggunakan teknik <i>embedding</i>. Saya menggunakan model <i>Neural Collaborative Filtering (NCF)</i> yang merupakan jaringan saraf (<i>Neural Network</i>) yang menyediakan <i>Collaborative Filtering</i> berdasarkan umpan balik implisit. Secara khusus, ini memberikan rekomendasi produk berdasarkan interaksi pengguna dan item. Data pelatihan untuk model ini harus berisi urutan pasangan (ID pengguna, ID anime) yang menunjukkan bahwa pengguna yang ditentukan telah berinteraksi dengan item, misalnya, dengan memberi peringkat atau mengklik. Secara khusus, ini memberikan rekomendasi produk berdasarkan interaksi pengguna dan item. Data pelatihan untuk model ini harus berisi urutan pasangan (ID pengguna, ID anime) yang menunjukkan bahwa pengguna yang ditentukan telah berinteraksi dengan item, misalnya, dengan memberi peringkat atau mengklik. 
+
+Pada proses ini model yang digunakan adalah <i>Deep Learning</i> untuk <i>Collaborative Filtering</i>. Aplikasi dari <i>deep learning</i> pada project ini adalah <i>layer embedding</i>. <i>Embedding  adalah pemetaan variabel diskrit — kategoris — ke vektor bilangan kontinu sehingga dapat digunakan untuk proses selanjutnya. Kemudian, setelah didapatkanlah nilai vektornya, lakukan operasi perkalian dot product antara hasil embeddingnya (user dan movie). Selain itu, kita juga dapat menambahkan bias untuk setiap user dan movie. kecocokan ditetapkan dalam skala 0 hingga 1 dengan fungsi aktivasi sigmoid. Pada model ini, Optimizer yang digunakan adalah optimizer adam dan loss function yang digunakan adalah Loss Binary Crossentropy. 
+
+Tahapan pada proses ini yaitu :
+* Memberikan ID baru pada setiap baris pada dataframe dengan membuat <i>unique value</i> dari userId kemudian membuat nilai sama dengan jumlah userId, membuat kolom user yang nilainya dihasilkan berdasarkan proses generate nilai userId dan membuat kolom user yang nilainya dihasilkan berdasarkan proses generate nilai movieId
+* Membagi data yang akan digunakan untuk proses training dan testing  k
 
 Langkah-langkah yang digunakan untuk mendapatkan list rekomendasi film berdasarkan aktivitas user berdasarkan <i>rate</i> yang diberikan oleh <i>user</i> 
   <ol><li> Mencari data <i>movie</i> apa saja yang telah ditonton oleh user lalu memasukkannya kedalam dataframe yang baru</li>
